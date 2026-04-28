@@ -8,6 +8,21 @@ import shutil
 import datetime
 import pexpect
 
+/*
+show manager info
+print output
+check off slot
+set system on -i slot
+collect GP MAC
+prepare MOS PXE boot file
+set PXE boot
+reset
+login GP max 7s
+fail thì retry 1 lần
+generate CSR/token/certs
+scp CSR về /home/RMA_GPCARD/CSR/AprilXX_CSRs
+*/
+
 MAC_FILE = "./RM_MAC.txt"
 SSH_PASSWORD = "$pl3nd1D"
 FIND_IP = "/usr/local/bin/find_ip"
