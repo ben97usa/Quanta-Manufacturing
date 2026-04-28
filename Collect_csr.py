@@ -17,10 +17,10 @@ TFTPBOOT_DIRECTORY = "/tftpboot/pxelinux.cfg"
 MOS_CUST_IMAGE = "/tftpboot/pxelinux.cfg/t6t_MOS"
 MOS_IMAGE = "firmware/t6t/gp/Image_rsa_mos.img"
 
-PUBKEY_FILE = "/home/qsitoan/project/UNLOCK_GP/id_rsa.pub"
+PUBKEY_FILE = "./id_rsa.pub"
 
 PXE_BOOT_IP = "10.0.3.254"
-SCP_IP = "192.168.202.50"
+SCP_IP = "192.168.202.58"
 SCP_USER = "qsitoan"
 SCP_PASSWORD = "QSI@qmf54321"
 
