@@ -849,7 +849,9 @@ def main():
             print(f"  - Slot {slot}: {reason}")
     else:
         print("  None")
-
+        
+    print(f"\nTotal copied successfully: {len(copied_successfully)}")
+    print(f"Total failed/manual check: {len(failed_slots)}")
     print(f"\nPXE target folder: {remote_dir}")
 
 
