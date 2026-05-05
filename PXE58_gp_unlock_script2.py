@@ -555,24 +555,40 @@ def gp_disable_firewall(child):
 
 
 def gp_check_bootmode_2(child, slot):
-    print_step(f"Slot {slot}: Check GP bootmode")
+    print_step(f"Slot {slot}: Check GP bootmode (FPGA + SOC)")
 
-    ok, output = gp_send_cmd(
+    # FPGA check
+    ok1, out1 = gp_send_cmd(
         child,
         "cerberus_utility fpgagetbootmode",
         timeout=30
     )
 
-    if not ok:
-        print_fail(f"Slot {slot}: cannot check GP bootmode")
+    # SOC check
+    ok2, out2 = gp_send_cmd(
+        child,
+        "cerberus_utility socgetbootmode",
+        timeout=30
+    )
+
+    if not ok1 or not ok2:
+        print_fail(f"Slot {slot}: cannot check bootmode")
         return False
 
-    if re.search(r"\b2\b", output):
-        print_ok(f"Slot {slot}: GP bootmode is 2")
-        return True
+    fpga_ok = bool(re.search(r"\b2\b", out1))
+    soc_ok  = bool(re.search(r"\b2\b", out2))
 
-    print_warn(f"Slot {slot}: GP bootmode is NOT 2")
-    return False
+    if fpga_ok:
+        print_ok(f"Slot {slot}: FPGA bootmode is 2")
+    else:
+        print_warn(f"Slot {slot}: FPGA bootmode is NOT 2")
+
+    if soc_ok:
+        print_ok(f"Slot {slot}: SOC bootmode is 2")
+    else:
+        print_warn(f"Slot {slot}: SOC bootmode is NOT 2")
+
+    return fpga_ok and soc_ok
 
 
 def gp_force_bootmode_2(child, slot):
